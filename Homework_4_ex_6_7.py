@@ -7,18 +7,26 @@
 #Например, в первом задании выводим целые числа, начиная с 3, а при достижении числа 10 завершаем цикл.
 # Во втором также необходимо предусмотреть условие, при котором повторение элементов списка будет прекращено.
 
-from itertools import count
+from itertools import count, cycle
 
-for el in count(int(input('Введите стартовое число '))):
-    if i > 10:
-        break
-    print(el) # внимание - беконечный цикл!
+value = 10
+generator_a = (item for i, item in enumerate(count(value)) if i < boundary)
 
-from itertools import cycle
+def number_int(first_number, last_number):
+    for num in count(first_number):
+        if num > last_number:
+            break
+        else:
+            yield num
 
-my_list = [True, 'ABC', 123, None]
-for el in cycle(my_list):
-    print(el) # внимание - беконечный цикл!
+
+def doublikate_list(any_list):
+    iteration_count = 0
+    for elem in cycle(any_list):
+        if iteration_count > (len(any_list) - 1):
+            break
+        yield elem
+        iteration_count += 1
 
 
 #7. Реализовать генератор с помощью функции с ключевым словом yield, создающим очередное значение.
