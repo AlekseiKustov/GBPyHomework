@@ -80,3 +80,113 @@ class Position(Worker):
 
 employee = Position('Альберт', 'Акчурин', 'Блоггер', 10, 20)
 print(f'Доход сотрудника:\n{employee.get_full_name()} / {(employee.position)} / {employee.get_total_income()}RUB')
+
+
+#4. Реализуйте базовый класс Car.
+# У данного класса должны быть следующие атрибуты: speed, color, name, is_police (булево).
+# А также методы: go, stop, turn(direction), которые должны сообщать, что машина поехала, остановилась, повернула (куда).
+# Опишите несколько дочерних классов: TownCar, SportCar, WorkCar, PoliceCar.
+# Добавьте в базовый класс метод show_speed, который должен показывать текущую скорость автомобиля.
+# Для классов TownCar и WorkCar переопределите метод show_speed.
+# При значении скорости свыше 60 (TownCar) и 40 (WorkCar) должно выводиться сообщение о превышении скорости.
+#Создайте экземпляры классов, передайте значения атрибутов.
+# Выполните доступ к атрибутам, выведите результат.
+# Выполните вызов методов и также покажите результат.
+
+
+class Car:
+    def __init__(self, speed, color, name, is_police):
+        self.speed = speed
+        self.color = color
+        self.name = name
+        self.is_police = is_police
+    def go(self):
+        print(f'{self.name} {self.color} начало движения.')
+    def stop(self):
+        print(f'{self.name} {self.color} остановка.')
+    def turn(self):
+        print(f'{self.name} {self.color} повернул на {direction}.')
+    def show_speed(self):
+        print(f'{self.name} {self.color} скорость движения {self.speed} км/ч.')
+
+class TownCar(Car):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def show_speed(self):
+        return f'{self.name} {self.color} привышение скорости на {self.speed - 60} км/ч.' if (self.speed > 60) else \
+            Car.show_speed(self)
+
+class SportCar(Car):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+class WorkCar(Car):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def show_speed(self):
+        return f'{self.name} {self.color} привышение скорости на {self.speed - 40} км/ч.' if (self.speed > 40) else \
+            Car.show_speed(self)
+
+class PoliceCar(Car):
+    def __init__(self, speed, color, name, is_Police = True):
+        super().__init__(speed, color, name, is_Police)
+        if self.is_police:
+            print(f'Это ПОЛИЦИЯ: {self.name} {self.color}')
+
+
+sport_auto = SportCar(170, 'Жёлтый', 'Жигули', False)
+print(sport_auto.turn('направо'))
+print(sport_auto.show_speed())
+
+town_auto = TownCar(70, 'Чёрный', 'Хёндэ', False)
+print(town_auto.go)
+print(town_auto.show_speed())
+
+police_auto = PoliceCar(200, 'Зелёный', 'Запорожец',True)
+print(police_auto.go)
+print(police_auto.show_speed())
+
+work_auto = WorkCar(80, '<Белый>', 'Фольксваген',False)
+print(work_auto.turn('направо'))
+print(work_auto.show_speed())
+
+
+# 5. Реализовать класс Stationery (канцелярская принадлежность).
+# Определить в нем атрибут title (название) и метод draw (отрисовка).
+# Метод выводит сообщение “Запуск отрисовки.”
+# Создать три дочерних класса Pen (ручка), Pencil (карандаш), Handle (маркер).
+# В каждом из классов реализовать переопределение метода draw.
+# Для каждого из классов методы должен выводить уникальное сообщение.
+# Создать экземпляры классов и проверить, что выведет описанный метод для каждого экземпляра.
+
+
+class Stationary:
+    def __init__(self, title):
+        self.title = title
+
+    def draw(self):
+        return f'Запуск отрисовки.'
+
+class Pen(Stationary):
+
+    def draw(self):
+        return f'{self.title}: Шариковая ручка'
+
+class Pencil(Stationary):
+
+     def draw(self):
+        return f'{self.title}: 2B'
+
+class Handle(Stationary):
+
+    def draw(self):
+        return f'{self.title}: Фломастер'
+
+pencil = Pencil('Карандаш')
+print(pencil.draw())
+pen = Pen('Ручка')
+print(pen.draw())
+handle = Handle('Маркер')
+print(handle.draw())
